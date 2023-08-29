@@ -1,18 +1,19 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Header } from "../components/Header/Header";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Spacer } from "../components/Spacer";
 
+import { SingleLineInput } from "../components/SingleLineInput";
 export const AddLinkScreen =()=>{
     const navigation = useNavigation(); 
-    
+    const [url, setUrl] = useState('');
     const onPressBack = useCallback(()=>{
         navigation.goBack(); 
     },[])
 
     return(
-        <View> 
+        <View style={{flex:1}}> 
             <Header>
                 <Header.Group>
                     
@@ -21,6 +22,14 @@ export const AddLinkScreen =()=>{
                     <Header.Title title = "AddLinkScreen"></Header.Title>
                 </Header.Group>
             </Header>
+            {/* url 입력창 */}
+            <View style={{flex:1, alignItems:'center', justifyContent:'center', paddingHorizontal:24}}>
+                <SingleLineInput
+                    value={url}
+                    onChangeText={setUrl}
+                    placeholder='https://example.com'
+                />
+            </View>
         </View>
     )
 
