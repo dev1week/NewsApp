@@ -14,9 +14,10 @@ export const LinkListScreen=()=>{
     const safeAreaInset = useSafeAreaInsets(); 
 
     const data = useRecoilValue(atomLinkList); 
-
-    const onPressButton = useCallback(()=>{
-        navigation.navigate("LinkDetail")
+    
+    // item : 눌린 목록의 세부사항 
+    const onPressListItem = useCallback((item)=>{
+        navigation.navigate("LinkDetail", {item})
     },[])
 
     const onPressAddButton = useCallback(()=>{
@@ -38,17 +39,19 @@ export const LinkListScreen=()=>{
                 data={data.list}
                 renderItem={({item})=>{
                     return(
-                        <View>
-                            <Typography fontSize={20}>
-                                {item.link} 
-                            </Typography>
-                            <Spacer space={4}/>
-                            {/* 타이틀이 없을 경우 공백 처리 */}
-                            <Typography fontSize={14} color='gray'>
-                                {item.title !== ''? `${item.title.slice(0,20)} |` :''}
-                                {new Date(item.createdAt).toLocaleString()}
-                            </Typography>
-                        </View>
+                        <Button onPress={()=>onPressListItem(item)} paddingHorizontal={24} paddingVertical={24}>
+                            <View>
+                                <Typography fontSize={20}>
+                                    {item.link} 
+                                </Typography>
+                                <Spacer space={4}/>
+                                {/* 타이틀이 없을 경우 공백 처리 */}
+                                <Typography fontSize={14} color='gray'>
+                                    {item.title !== ''? `${item.title.slice(0,20)} |` :''}
+                                    {new Date(item.createdAt).toLocaleString()}
+                                </Typography>
+                            </View>
+                        </Button>
                     )
                 }}
             />
