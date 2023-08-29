@@ -3,10 +3,16 @@ import { Header } from "../components/Header/Header";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Spacer } from "../components/Spacer";
+import { Button } from "../components/Button";
+import { Typography } from "../components/Typography";
+
 
 import { SingleLineInput } from "../components/SingleLineInput";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 export const AddLinkScreen =()=>{
     const navigation = useNavigation(); 
+    const safeAreaInset = useSafeAreaInsets(); 
+
     const [url, setUrl] = useState('');
     const onPressBack = useCallback(()=>{
         navigation.goBack(); 
@@ -30,6 +36,15 @@ export const AddLinkScreen =()=>{
                     placeholder='https://example.com'
                 />
             </View>
+
+            <Button >
+                <View style={{backgroundColor: url===''? 'gray' : 'black'}}> 
+                    <View style={{height:52, alignItems: 'center', justifyContent: 'center'}}>
+                        <Typography color='white' fontSize={18}>저장하기</Typography>
+                    </View>
+                </View>
+                <Spacer space={safeAreaInset.bottom}/>
+            </Button>
         </View>
     )
 
